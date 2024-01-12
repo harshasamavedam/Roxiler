@@ -1,8 +1,9 @@
 const express=require('express')
 const app=express()
+const cors=require('cors')
 app.use(express.json())
 const mysql=require('mysql2')
-
+app.use(cors())
 
 const connection=mysql.createConnection({
     host:'localhost',
@@ -38,29 +39,32 @@ const l=await k()
 resp.send('done')
 })
 
-app.get('/',async (req,resp)=>{
-    connection.query(`select * from roxilerdata where dateOfSale like '%-09%'`,(err,result)=>{
+app.get('/:Id',async (req,resp)=>{
+    const {Id}=req.params
+    console.log(Id)
+   const quer= `select * from roxiler.roxilerdata where month((dateofsale))=(?)`
+    connection.query(quer,[Id],(err,result)=>{
         if(err) throw err
        resp.send(result)
     })
 })
 
-app.get('/monthlyreport',async(req,resp)=>{
-const month=req.body.month
+app.get('/monthlyreport/:id',async(req,resp)=>{
+const {id}=req.params
     const quer=`select sum(price) totalpurchase,count(id) as noofproducts,case 
     when sold=0 then 'notsold'
     else 'sold'
     end as sstatus
     from roxiler.roxilerdata where month(dateOfSale)=(?) group by sold`
-    connection.query(quer,[month],(err,result)=>{
+    connection.query(quer,[id],(err,result)=>{
 if (err) throw err
 resp.send(result)
     })
 })
 
 
-app.get('/productrange',async (req,resp)=>{
-    let month=req.body.month
+app.get('/productrange/:month',async (req,resp)=>{
+    let {month}=req.params
     let quer=`select sum(price) totalpurchase,count(id) as noofproducts,case 
     when price>0 and price <=100 then '0-100'
     when price>100 and price<=200 then '101-200'
@@ -81,8 +85,8 @@ connection.query(quer,[month],(err,result)=>{
 })
 })
 
-app.get('/distinctproduct',async(req,resp)=>{
-    let month=req.body.month
+app.get('/distinctproduct/:month',async(req,resp)=>{
+    let {month}=req.params
     let quer='select distinct category as category , count(id) as no_of_product from roxiler.roxilerdata where month(dateOfSale)=(?) group by category'
     connection.query(quer,[month],(err,result)=>{
         if(err) throw err
