@@ -3,7 +3,7 @@
     "builds": [
       {
         "src": "index.js",
-        "use": "@nvercel/node"
+        "use": "@vercel/node"
       }
     ],
     "routes": [
@@ -11,8 +11,13 @@
         "src": "/(.*)",
         "dest": "index.js"
       }
+<<<<<<< HEAD
     ],
 
       "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
   
   }
+=======
+    ]
+  }
+>>>>>>> 6f9d95b28f82b8eaf102f1e74d1b00b2b0459fb1
