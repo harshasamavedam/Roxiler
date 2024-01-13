@@ -95,3 +95,5 @@ app.get('/distinctproduct/:month',async(req,resp)=>{
 })
 
 app.listen(3010,()=>console.log('http://localhost:3010'))
+
+export default app
