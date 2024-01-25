@@ -3,6 +3,7 @@ import Paginationcontext from '../../context/context'
 
 const Table=(props)=>{
     const {presentdata,filterdata}=props
+    console.log(`${filterdata} data in table`)
     return <Paginationcontext.Consumer>
 {value=>{
     const{present,ma}=value

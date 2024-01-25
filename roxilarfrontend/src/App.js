@@ -1,5 +1,6 @@
 import Home from './Component/main'
 
+
 function App() {
   return  <div>
       <Home/>

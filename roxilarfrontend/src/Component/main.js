@@ -71,29 +71,37 @@ this.n()}
 
 
     fo=async ()=>{
-const {presentmonth,search}=this.state
-        const url=`http://localhost:3010/${presentmonth}`
+let {presentmonth,search}=this.state
+if(presentmonth<=9){
+    presentmonth=`0${presentmonth}`
+}
+        const url=`https://backsql-production.up.railway.app/${presentmonth}`
         console.log(url)
         const m=await fetch(url)
-        console.log(m)
         const data=await m.json()
+        console.log(data)
         const la=()=>{const k=data.filter((each)=>each.title.includes(search)||each.description.includes(search)||String(each.price).includes(search))
         this.setState({filterdata:k,presentdata:data})}
         la();
-
         
     }
     montrepor=async ()=>{
-        const {presentmonth}=this.state
-        const url=`http://localhost:3010/monthlyreport/${presentmonth}`
+        let {presentmonth}=this.state
+        if(presentmonth<=9){
+            presentmonth=`0${presentmonth}`
+        }
+        const url=`https://backsql-production.up.railway.app/monthlyreport/${presentmonth}`
         console.log(url)
         const da=await fetch(url)
         const data=await da.json()
         this.setState({monthlystatus:data})
     }
     pricerange=async ()=>{
-        const {presentmonth}=this.state
-        const url=`http://localhost:3010/productrange/${presentmonth}`
+        let {presentmonth}=this.state
+        if(presentmonth<=9){
+            presentmonth=`0${presentmonth}`
+        }
+        const url=`https://backsql-production.up.railway.app/productrange/${presentmonth}`
         console.log(url)
         const da=await fetch(url)
         const data=await da.json()
@@ -101,8 +109,11 @@ const {presentmonth,search}=this.state
     }
 
     pie=async ()=>{
-        const {presentmonth}=this.state
-        const url=`http://localhost:3010/distinctproduct/${presentmonth}`
+        let {presentmonth}=this.state
+        if(presentmonth<=9){
+            presentmonth=`0${presentmonth}`
+        }
+        const url=`https://backsql-production.up.railway.app/distinctproduct/${presentmonth}`
         const da=await fetch(url)
         const data=await da.json()
         this.setState({product:data})
@@ -142,7 +153,7 @@ const {presentmonth,search}=this.state
  }
  onleftclick=()=>{
     this.setState((prev)=>({present:prev.present-1}))
- }      
+ }
 
     render(){
         const {presentmonth,search,presentdata,filterdata,ma,present,monthlystatus,range,product}=this.state

@@ -3,7 +3,7 @@ import { Md } from "../homestyle"
 const MonthlyAnalysys=(props)=>{
     const {data,mont}=props
     console.log(mont)
-
+console.log(data)
        let price=null
         let sold=null
         let unsold=null
@@ -12,6 +12,7 @@ const MonthlyAnalysys=(props)=>{
             price:0,
             unsold:0,
         }
+        
    const final= data.map((each,)=>{
 
 if(each.sstatus==='sold'){

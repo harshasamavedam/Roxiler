@@ -45,6 +45,7 @@ app.get('/:Id',async (req,resp)=>{
    const quer= `select * from roxiler.roxilerdata where month((dateofsale))=(?)`
     connection.query(quer,[Id],(err,result)=>{
         if(err) throw err
+        console.log(result)
        resp.send(result)
     })
 })
@@ -96,4 +97,3 @@ app.get('/distinctproduct/:month',async(req,resp)=>{
 
 app.listen(3010,()=>console.log('http://localhost:3010'))
 
-export default app
